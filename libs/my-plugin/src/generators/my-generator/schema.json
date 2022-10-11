@@ -62,7 +62,15 @@
 				"type": "list",
 				"items": ["all", "feature", "ui", "util", "data-access"]
 			}
-		}
+		},
+    "codeowners": {
+      "type": "string",
+      "description": "Provide a user/team name(s) to configure github CODEOWNERS",
+      "$default": {
+        "$source": "argv"
+      },
+      "x-prompt": "Provide a user/team name(s) to configure github CODEOWNERS"
+    }
   },
   "required": ["name", "scope", "domain", "type"]
 }

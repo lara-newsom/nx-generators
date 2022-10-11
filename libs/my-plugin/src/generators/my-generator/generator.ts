@@ -8,16 +8,23 @@ const ALL_TYPES = ['feature', 'ui', 'util', 'data-access'];
 
 export default async function (tree: Tree, options: MyGeneratorGeneratorSchema) {
   if (options.type === 'all') {
-    for(const x of ALL_TYPES) {
+    for(const type of ALL_TYPES) {
       const libOptions = {
         ...options,
-        type: x
+        type
       }
-      await generateLibrary(tree, libOptions)
+      await generateLibrary(tree, libOptions);
+
+      const codePath = `libs/${options.scope}/${options.domain}/${type}/${options.name}`;
+      updateCodeowners(tree, codePath, options.codeowners);
     }
   } else {
     await libraryGenerator(tree, options);
+
+    const codePath = `libs/${options.scope}/${options.domain}/${options.type}/${options.name}`;
+    updateCodeowners(tree, codePath, options.codeowners);
   }
+
 }
 
 async function generateLibrary(tree, options) {
@@ -28,5 +35,17 @@ async function generateLibrary(tree, options) {
   await libraryGenerator(tree, options);
 }
 
+function updateCodeowners(tree: Tree, path: string, codeowners: string) {
+	if (codeowners) {
+		const filePath = '.github/CODEOWNERS';
+		const contents = tree.read(filePath);
+		if (contents) {
+			tree.write(
+				filePath,
+				Buffer.concat([contents, Buffer.from(`\n/${path} ${codeowners}\n`)]),
+			);
+		}
+	}
+}
 
 
