@@ -1,0 +1,94 @@
+{
+  "name": "nx-conf-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/nx-conf-app/src",
+  "prefix": "nx-conf2022",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/nx-conf-app",
+        "index": "apps/nx-conf-app/src/index.html",
+        "main": "apps/nx-conf-app/src/main.ts",
+        "polyfills": "apps/nx-conf-app/src/polyfills.ts",
+        "tsConfig": "apps/nx-conf-app/tsconfig.app.json",
+        "assets": [
+          "apps/nx-conf-app/src/favicon.ico",
+          "apps/nx-conf-app/src/assets"
+        ],
+        "styles": ["apps/nx-conf-app/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/nx-conf-app/src/environments/environment.ts",
+              "with": "apps/nx-conf-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "nx-conf-app:build:production"
+        },
+        "development": {
+          "browserTarget": "nx-conf-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "nx-conf-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/nx-conf-app/**/*.ts",
+          "apps/nx-conf-app/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/nx-conf-app"],
+      "options": {
+        "jestConfig": "apps/nx-conf-app/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
