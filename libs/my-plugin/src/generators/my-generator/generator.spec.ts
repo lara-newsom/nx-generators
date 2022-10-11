@@ -14,7 +14,7 @@ describe('my-generator generator', () => {
 
   it('should run successfully', async () => {
     await generator(appTree, options);
-    const config = readProjectConfiguration(appTree, 'test');
+    const config = readProjectConfiguration(appTree, 'shared-cats-util-test');
     expect(config).toBeDefined();
   });
 });
