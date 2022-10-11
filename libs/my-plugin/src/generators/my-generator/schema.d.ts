@@ -5,7 +5,7 @@ export interface MyGeneratorGeneratorSchema {
     importPath?: string;
     scope: 'nx-app' | 'nx-mobile' | 'shared';
     domain: 'cats' | 'dogs' | 'birds' | 'reptiles' | 'other';
-    type: 'feature' | 'ui' | 'util' | 'data-access';
+    type: 'feature' | 'ui' | 'util' | 'data-access' | 'all';
 }
 
 

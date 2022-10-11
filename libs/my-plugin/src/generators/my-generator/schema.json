@@ -60,7 +60,7 @@
 			"x-prompt": {
 				"message": "What type of library is being generated?",
 				"type": "list",
-				"items": ["feature", "ui", "util", "data-access"]
+				"items": ["all", "feature", "ui", "util", "data-access"]
 			}
 		}
   },
