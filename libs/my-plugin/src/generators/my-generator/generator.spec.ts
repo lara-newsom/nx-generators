@@ -6,7 +6,7 @@ import { MyGeneratorGeneratorSchema } from './schema';
 
 describe('my-generator generator', () => {
   let appTree: Tree;
-  const options: MyGeneratorGeneratorSchema = { name: 'test' };
+  const options: MyGeneratorGeneratorSchema = { name: 'test', type: 'util', scope: "shared", domain: "cats" };
 
   beforeEach(() => {
     appTree = createTreeWithEmptyWorkspace();

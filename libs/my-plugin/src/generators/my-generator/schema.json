@@ -14,16 +14,61 @@
       },
       "x-prompt": "What name would you like to use?"
     },
-    "tags": {
-      "type": "string",
-      "description": "Add tags to the project (used for linting)",
-      "alias": "t"
-    }, 
-    "directory": {
-      "type": "string",
-      "description": "A directory where the project is placed",
-      "alias": "d"
-    }
+    "scope": {
+			"type": "string",
+			"description": "Scope tag for library",
+			"$default": {
+				"$source": "argv",
+				"index": 1
+			},
+			"x-prompt": {
+				"message": "What is the scope tag for the library?",
+				"type": "list",
+				"items": [
+					"nx-app",
+          "nx-mobile",
+          "shared"
+				]
+			}
+		},
+    "domain": {
+			"type": "string",
+			"description": "Feature domain tag for library",
+			"$default": {
+				"$source": "argv",
+				"index": 2
+			},
+			"x-prompt": {
+				"message": "What is the feature domain tag for the library?",
+				"type": "list",
+				"items": [
+					"cats",
+          "dogs",
+          "birds",
+          "reptiles",
+          "other"
+				]
+			}
+		},
+    "type": {
+			"type": "string",
+			"description": "What type of library?",
+			"$default": {
+				"$source": "argv",
+				"index": 3
+			},
+			"x-prompt": {
+				"message": "What type of library is being generated?",
+				"type": "list",
+				"items": ["feature", "ui", "util", "data-access"]
+			}
+		}
   },
-  "required": ["name"]
+  "required": ["name", "scope", "domain", "type"]
 }
+
+
+
+
+
+
