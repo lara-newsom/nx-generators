@@ -16,15 +16,14 @@ export default async function (tree: Tree, options: MyGeneratorGeneratorSchema) 
       await generateLibrary(tree, libOptions);
 
       const codePath = `libs/${options.scope}/${options.domain}/${type}/${options.name}`;
-      updateCodeowners(tree, codePath, options.codeowners);
+      updateCodeownersFile(tree, codePath, options.codeowners);
     }
   } else {
     await libraryGenerator(tree, options);
 
     const codePath = `libs/${options.scope}/${options.domain}/${options.type}/${options.name}`;
-    updateCodeowners(tree, codePath, options.codeowners);
+    updateCodeownersFile(tree, codePath, options.codeowners);
   }
-
 }
 
 async function generateLibrary(tree, options) {
@@ -35,14 +34,15 @@ async function generateLibrary(tree, options) {
   await libraryGenerator(tree, options);
 }
 
-function updateCodeowners(tree: Tree, path: string, codeowners: string) {
+function updateCodeownersFile(tree: Tree, path: string, codeowners: string) {
 	if (codeowners) {
 		const filePath = '.github/CODEOWNERS';
-		const contents = tree.read(filePath);
-		if (contents) {
+		const codeownersFile = tree.read(filePath);
+
+		if (codeownersFile) {
 			tree.write(
 				filePath,
-				Buffer.concat([contents, Buffer.from(`\n/${path} ${codeowners}\n`)]),
+				Buffer.concat([codeownersFile, Buffer.from(`\n/${path} ${codeowners}`)]),
 			);
 		}
 	}
