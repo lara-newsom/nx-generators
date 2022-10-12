@@ -1,0 +1,7 @@
+import 'jest-preset-angular/setup-jest';
+import { configure } from '@testing-library/dom';
+import '@testing-library/jest-dom';
+
+configure({ testIdAttribute: 'data-auto-id' });
+
+

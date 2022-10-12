@@ -1,4 +1,8 @@
 import {
+  formatFiles,
+  generateFiles,
+  joinPathFragments,
+  readProjectConfiguration,
   Tree,
 } from '@nrwl/devkit';
 import { MyGeneratorGeneratorSchema } from './schema';
@@ -17,13 +21,21 @@ export default async function (tree: Tree, options: MyGeneratorGeneratorSchema) 
 
       const codePath = `libs/${options.scope}/${options.domain}/${type}/${options.name}`;
       updateCodeownersFile(tree, codePath, options.codeowners);
+
+      const formattedName = `${options.scope}-${options.domain}-${type}-${options.name}`;
+      createTestSetupFile(tree, formattedName);
     }
   } else {
-    await libraryGenerator(tree, options);
+    await generateLibrary(tree, options);
 
     const codePath = `libs/${options.scope}/${options.domain}/${options.type}/${options.name}`;
     updateCodeownersFile(tree, codePath, options.codeowners);
+
+    const formattedName = `${options.scope}-${options.domain}-${options.type}-${options.name}`;
+    createTestSetupFile(tree, formattedName);
   }
+
+  await formatFiles(tree);
 }
 
 async function generateLibrary(tree, options) {
@@ -48,4 +60,14 @@ function updateCodeownersFile(tree: Tree, path: string, codeowners: string) {
 	}
 }
 
+function createTestSetupFile(
+	tree: Tree,
+	name: string,
+) {
+	const libraryRoot = readProjectConfiguration(tree, name).root;
+	generateFiles(tree, joinPathFragments(__dirname, 'files'), libraryRoot, {
+    template: ''
+  });
+}
 
+    
